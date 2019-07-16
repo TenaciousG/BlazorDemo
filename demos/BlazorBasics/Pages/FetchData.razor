@@ -3,7 +3,11 @@
 
 <h1>Weather forecast</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+
+<p>
+    Total temperature this week:
+    @forecasts?.Sum(f => f.TemperatureC) degrees
+</p>
 
 @if (forecasts == null)
 {
@@ -25,7 +29,9 @@ else
             {
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
+                    <td>
+                        <input type="number" @bind="@forecast.TemperatureC" />
+                    </td>
                     <td>@forecast.TemperatureF</td>
                     <td>@forecast.Summary</td>
                 </tr>
@@ -48,7 +54,7 @@ else
 
         public int TemperatureC { get; set; }
 
-        public int TemperatureF { get; set; }
+        public int TemperatureF => TemperatureC * 2 + 30;
 
         public string Summary { get; set; }
     }
